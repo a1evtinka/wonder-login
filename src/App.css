@@ -11,12 +11,6 @@
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
 @keyframes logo-spin {
   from {
@@ -37,6 +31,66 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+
+.back {
+	top: 25%;
+  width: 1000px; 
+  height: 1000px; 
+}
+
+.rounded-div {
+  padding: 16px;
+	position: relative;
+	left: 10%;
+	top: 10%;
+  width: 700px; 
+  height: 500px; 
+  border-radius: 10%;
+	background-color: rgba(2, 15, 1, 0.9);
+	mix-blend-mode: hard-light;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  align-items: flex-end;
+  width: 70%;
+  gap: 16px;
+}
+
+/* .input-container {
+  width: 225px;
+	height: 36px;
+	margin: 16px;
+	border: solid 1px red;	
+	border-radius: 10px;
+	background-color: gray;
+} */
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 16px;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.form-input {
+  background: none !important; 
+  border: 1px solid #ccc; 
+  padding: 8px; 
+  outline: none; 
+  color: #ccc; 
+  font-size: 16px; 
+  border-radius: 5%;
+  margin-left: 16px;
+}
+
+.form-input:focus {
+  border-color: #747bff;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #747bff;
 }

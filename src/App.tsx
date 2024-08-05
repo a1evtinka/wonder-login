@@ -1,33 +1,116 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { FormEvent, ChangeEvent, useState } from 'react';
 import './App.css'
+import MovingButton from './features/movingButton'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [formData, setFormData] = useState({ 
+    login: '', 
+    password: '',
+    terms: false, });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const isFormValid = formData.login.length >= 7 && formData.password.length >= 7;
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(e.target);
+
+  };
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <MovingButton />
+    <div className="back">
+      <div className="rounded-div">
+        <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="input-container">
+          {/* <div className="input-hole"> */}
+          <label>
+            Login:
+            <input
+              type="text"
+              name="login"
+              value={formData.login}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          {/* </div> */}
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          <div className="checkbox-container">
+          <label>
+            Remember me
+            <input
+              type="checkbox"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          <label>
+            Forget me?
+            <input
+              type="checkbox"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          </div>
+          <label>
+            Agree with terms and conditions
+            <input
+              type="checkbox"
+              checked={formData.terms}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          <label>
+            Agree to donate to the rabbit support fund
+            <input
+              type="checkbox"
+              checked={formData.terms}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+          <label>
+            C'est dans les rêves que se cache la porte de l'éternel conte
+            <input
+              type="checkbox"
+              checked={formData.terms}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </label>
+        </div>
+        <div>
+          <button style={{marginTop: '16px'}} type="submit" disabled={!isFormValid}>
+          Enter
+          </button>
+        </div>
+      </form>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </div>
     </>
   )
 }

@@ -5,7 +5,10 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-image: url("../public/wonder-back.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -52,6 +55,14 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.cat {
+  background-image: url("../public/wonder-cat.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100px;
+  height: 100px;
 }
 
 @media (prefers-color-scheme: light) {
