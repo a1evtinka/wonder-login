@@ -14,6 +14,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 a {
@@ -40,29 +41,88 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: none;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  /* transition: border-color 0.25s; */
 }
-button:hover {
+/* button:hover {
   border-color: #646cff;
-}
+} */
 button:focus,
-button:focus-visible {
+/* button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 .cat {
-  background-image: url("../public/wonder-cat.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100px;
-  height: 100px;
+  background-color: #1a1a1a;
+}
+
+.cat::before,
+.cat::after {
+    content: '';
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+    background-color: inherit; 
+    border-radius: 50%;
+    clip-path: polygon(40% 0%, 0% 100%, 100% 100%);
+    z-index: -1; 
+    
+}
+
+.cat::before {
+    top: -12px;
+    left: 0px;
+}
+
+.cat::after {
+    top: -12px;
+    right: 0px;
+}
+  
+
+   .cat-shape {
+    background-image: url("../public/wonder-cat.jpg");
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 45% 95%; 
+    border-radius: 50%;
+}
+
+.cat-shape::before,
+.cat-shape::after {
+    content: '';
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+    background-image: inherit; 
+    background-repeat: no-repeat;
+    background-size: 300%;
+    background-position: 20% 25%; 
+    border-radius: 50%;
+    clip-path: polygon(40% 0%, 0% 100%, 100% 100%);
+    z-index: -1; 
+    
+}
+
+.cat-shape::before {
+    top: -12px;
+    left: 0px;
+}
+
+.cat-shape::after {
+    top: -12px;
+    right: 0px;
 }
 
 @media (prefers-color-scheme: light) {

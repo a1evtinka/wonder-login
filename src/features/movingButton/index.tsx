@@ -1,25 +1,29 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../app/AppContext";
 
 function MovingButton() {
     const [position, setPosition] = useState({ left: 0, top: 0 });
-    const [isMoving, setIsMoving] = useState(true);
+    // const [isMoving, setIsMoving] = useState(true);
+    const context = useContext(AppContext);
   
     useEffect(() => {
       let interval: ReturnType<typeof setTimeout>;
   
-      if (isMoving) {
+      if (context?.isMoving) {
         interval = setInterval(() => {
           const x = Math.random() * (window.innerWidth - 100); 
           const y = Math.random() * (window.innerHeight - 50); 
+          console.log(x, y, 'x, y');
+          
           setPosition({ left: x, top: y });
-        }, 500);
+        }, 1000);
       }
   
       return () => clearInterval(interval);
-    }, [isMoving]);
+    }, [context]);
   
     const handleClick = () => {
-      setIsMoving(false);
+      context?.setIsMoving(false);
     };
   
     return (
@@ -33,13 +37,21 @@ function MovingButton() {
           cursor: 'pointer',
           transition: 'left 2s linear, top 2s linear',
           borderRadius: '50%',
-          width: '85px',
-          height: '85px',
+          width: '80px',
+          height: '80px',
+          // width: 0,
+          // height: 0,
+          // borderLeft: '40px solid transparent',
+          // borderRight: '40px solid transparent',
+          // borderBottom: '70px solid yellow',
+          // position: 'relative',
         //   backgroundImage: `url(${isMoving ? '../../public/wonder-cat.jpg' : ''})`,
         }}
-        className={`${isMoving ? '' : 'cat'}`}
+        className={`${context?.isMoving ? 'cat' : 'cat-shape'}`}
+        // className={'cat-shape'}
+
       >
-        {isMoving ? 'Catch me!' : ''}
+        {context?.isMoving ? 'Catch me!' : ''}
       </button>
     );
   }
