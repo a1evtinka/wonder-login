@@ -1,17 +1,19 @@
 import { ButtonHTMLAttributes } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-interface IInput extends ButtonHTMLAttributes<HTMLButtonElement>  {
+interface IInput extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
 }
 
 function Button(
-  { label, ...props }: IInput
+  {
+    label, ...props
+  }: IInput,
 ) {
   return (
-      <CustomButton {...props} >
-        {label}
-      </CustomButton>
+    <CustomButton {...props}>
+      {label}
+    </CustomButton>
   );
 }
 

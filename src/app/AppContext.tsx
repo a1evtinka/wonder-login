@@ -11,12 +11,16 @@ interface IAppContext {
 
 export const AppContext = createContext<IAppContext | undefined>(undefined);
 
-export const AppProvider = ({ children }: IContext) => {
-    const [isMoving, setIsMoving] = useState(true);
+export function AppProvider({ children }: IContext) {
+  const [isMoving, setIsMoving] = useState(true);
 
-    return (
-        <AppContext.Provider value={{ isMoving, setIsMoving }}>
-            {children}
-        </AppContext.Provider>
-    );
-};
+  return (
+    <AppContext.Provider value={{
+      isMoving,
+      setIsMoving,
+    }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+}

@@ -1,59 +1,71 @@
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../app/AppContext";
+import styled from 'styled-components';
+import img from '../../../public/wonder-cat.jpg';
+import useMovingButton from './movingButton.hook';
 
 function MovingButton() {
-    const [position, setPosition] = useState({ left: 0, top: 0 });
-    // const [isMoving, setIsMoving] = useState(true);
-    const context = useContext(AppContext);
-  
-    useEffect(() => {
-      let interval: ReturnType<typeof setTimeout>;
-  
-      if (context?.isMoving) {
-        interval = setInterval(() => {
-          const x = Math.random() * (window.innerWidth - 100); 
-          const y = Math.random() * (window.innerHeight - 50); 
-          console.log(x, y, 'x, y');
-          
-          setPosition({ left: x, top: y });
-        }, 1000);
-      }
-  
-      return () => clearInterval(interval);
-    }, [context]);
-  
-    const handleClick = () => {
-      context?.setIsMoving(false);
-    };
-  
-    return (
-      <button
-        onClick={handleClick}
-        style={{
-          position: 'absolute',
-          left: `${position.left}px`,
-          top: `${position.top}px`,
-          fontSize: '14px',
-          cursor: 'pointer',
-          transition: 'left 2s linear, top 2s linear',
-          borderRadius: '50%',
-          width: '80px',
-          height: '80px',
-          // width: 0,
-          // height: 0,
-          // borderLeft: '40px solid transparent',
-          // borderRight: '40px solid transparent',
-          // borderBottom: '70px solid yellow',
-          // position: 'relative',
-        //   backgroundImage: `url(${isMoving ? '../../public/wonder-cat.jpg' : ''})`,
-        }}
-        className={`${context?.isMoving ? 'cat' : 'cat-shape'}`}
-        // className={'cat-shape'}
+  const {
+    position, isMoving, handleClick,
+  } = useMovingButton();
 
-      >
-        {context?.isMoving ? 'Catch me!' : ''}
-      </button>
-    );
-  }
+  return (
+    <CatButton
+      onClick={handleClick}
+      isMoving={isMoving}
+      style={{
+        left: `${position.left}px`,
+        top: `${position.top}px`,
+      }}
+    >
+      {isMoving ? 'Catch me!' : ''}
+    </CatButton>
+  );
+}
+
+interface ButtonProps {
+  isMoving: boolean;
+  onClick: () => void;
+}
+
+const CatButton = styled.button<ButtonProps>`
+  position: absolute;
+  font-size: 14px;
+  cursor: pointer;
+  transition: left 2s linear, top 2s linear;
+
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: ${({ isMoving }) => (isMoving ? '#1a1a1a' : 'none')};
+  background-image: ${({ isMoving }) => (!isMoving ? `url(${img})` : 'none')};
+  background-repeat: no-repeat;
+  background-size: ${({ isMoving }) => (!isMoving ? 'cover' : 'initial')};
+  background-position: ${({ isMoving }) => (!isMoving ? '45% 95%' : 'initial')};
   
-  export default MovingButton;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: ${({ isMoving }) => (isMoving ? '#1a1a1a' : 'transparent')};
+    background-image: ${({ isMoving }) => (!isMoving ? `url(${img})` : 'none')};
+    background-repeat: no-repeat;
+    background-size: ${({ isMoving }) => (!isMoving ? '300%' : 'initial')};
+    background-position: ${({ isMoving }) => (!isMoving ? '20% 25%' : 'initial')};
+    clip-path: polygon(40% 0%, 0% 100%, 100% 100%);
+    z-index: -1;
+  }
+
+  &::before {
+    top: -12px;
+    left: 0px;
+  }
+
+  &::after {
+    top: -12px;
+    right: 0px;
+  }
+`;
+
+export default MovingButton;

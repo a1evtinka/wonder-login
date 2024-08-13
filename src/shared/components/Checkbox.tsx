@@ -1,16 +1,18 @@
 import { InputHTMLAttributes } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-interface IInput extends InputHTMLAttributes<HTMLInputElement>  {
+interface IInput extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
 function Checkbox(
-  { label, ...props }: IInput
+  {
+    label, ...props
+  }: IInput,
 ) {
   return (
     <label>
-      {label}:
+      {label}
       <CustomInput type="checkbox" {...props} />
     </label>
   );
