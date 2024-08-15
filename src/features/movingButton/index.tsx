@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import img from '../../../public/wonder-cat.jpg';
+import img from '../../wonder-cat.jpg';
 import useMovingButton from './movingButton.hook';
+import { ButtonProps } from './movingButton.types';
 
 function MovingButton() {
   const {
@@ -19,11 +20,6 @@ function MovingButton() {
       {isMoving ? 'Catch me!' : ''}
     </CatButton>
   );
-}
-
-interface ButtonProps {
-  isMoving: boolean;
-  onClick: () => void;
 }
 
 const CatButton = styled.button<ButtonProps>`

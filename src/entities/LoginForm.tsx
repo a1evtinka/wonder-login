@@ -1,91 +1,23 @@
-import { FormEvent, ChangeEvent, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import resetPosition from '../shared/helpers/resetPosition';
-import changePositionRandomly from '../shared/helpers/changePositionRandomly';
 import Input from '../shared/components/Input';
 import LOGIN_AGREEMENTS from '../shared/constants';
 import Checkbox from '../shared/components/Checkbox';
 import Button from '../shared/components/Button';
-
-interface ILoginForm {
-    isMoving: boolean;
-}
-interface ICheckbox {
-    REMEMBER: boolean;
-    FORGET: boolean;
-    TERMS: boolean;
-    DONATE: boolean;
-    EXTRA: boolean;
-}
-
-interface ILoginData {
-    login: string;
-    password: string;
-    checkboxes: ICheckbox
-}
+import { ICheckbox, ILoginForm } from './LoginForm.types';
+import useLoginForm from './LoginForm.hook';
 
 function LoginForm({ isMoving }: ILoginForm) {
-  const loginInput = useRef<HTMLInputElement | null>(null);
-  const passwordInput = useRef<HTMLInputElement | null>(null);
-
-  const [formData, setFormData] = useState<ILoginData>({
-    login: '',
-    password: '',
-    checkboxes: {
-      REMEMBER: false,
-      FORGET: false,
-      TERMS: false,
-      DONATE: false,
-      EXTRA: false,
-    },
-  });
-
-  const isFormValid = formData.login.length >= 7 && formData.password.length >= 7;
-
-  useEffect(() => {
-    if (!isMoving && loginInput.current && passwordInput.current) {
-      resetPosition(loginInput.current);
-      resetPosition(passwordInput.current);
-    }
-  }, [isMoving]);
-
-  const changePosition = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (isMoving) {
-      changePositionRandomly(e.currentTarget);
-    }
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    alert('Congrats! You are allowed to text me in Telegram: @a1evtinka');
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const {
-      name, value,
-    } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      name, checked,
-    } = event.target;
-
-    setFormData((prevState) => ({
-      ...prevState,
-      checkboxes: {
-        ...prevState.checkboxes,
-        [name]: checked,
-      },
-    }));
-  };
-
+  const {
+    formData,
+    isFormValid,
+    loginInput,
+    passwordInput,
+    changePosition,
+    handleInputChange,
+    handleCheckboxChange,
+    handleSubmit,
+  } = useLoginForm(isMoving);
   return (
     <form onSubmit={handleSubmit}>
       <FormFieldsWrapper>
@@ -105,7 +37,6 @@ function LoginForm({ isMoving }: ILoginForm) {
           value={formData.password}
           onChange={handleInputChange}
           onInput={changePosition}
-          className="form-input"
           ref={passwordInput}
         />
         <CheckboxWrapper>
